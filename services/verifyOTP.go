@@ -11,7 +11,7 @@ import (
 func Verifycode(request requestStruct.OTPRequest) error {
 	otp, err := redis.RedisSession().Get(request.Email).Result()
 	if err != nil {
-		return err
+		return errors.New("Couldn't find any related OTP, kindly re-enter")
 	}
 
 	if otp != strconv.Itoa(request.OTP) {
