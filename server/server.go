@@ -1,8 +1,8 @@
 package server
 
-import "github.com/gin-gonic/gin"
+import "github.com/shivamsouravjha/influenza/routes"
 
 func Init() {
-	r := gin.New()
+	r := routes.NewRouter()
 	r.Run(":8080")
 }
