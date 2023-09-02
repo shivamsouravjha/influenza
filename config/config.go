@@ -25,6 +25,7 @@ type Config struct {
 	DBMaxOpenConnections int
 	EmailPassword        string
 	DBMaxIdleConnections int
+	JWT                  string
 }
 
 var config Config
@@ -52,7 +53,7 @@ func init() {
 	config.AppEnv = appEnv
 	config.SqlPrefix = "/* " + config.AppName + " - " + config.AppEnv + "*/"
 	config.DBUserName = os.Getenv("DB_USERNAME")
-	config.DBHostReader = os.Getenv("DB_HOST_READER")
+	config.JWT = os.Getenv("JWT_TOKEN")
 	config.DBHostWriter = os.Getenv("DB_HOST_WRITER")
 	config.DBPort = os.Getenv("DB_PORT")
 	config.DBPassword = os.Getenv("DB_PASSWORD")
