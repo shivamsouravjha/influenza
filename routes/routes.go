@@ -1,6 +1,9 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	get "github.com/shivamsouravjha/influenza/controllers/GET"
+)
 
 func NewRouter() *gin.Engine {
 
@@ -9,7 +12,7 @@ func NewRouter() *gin.Engine {
 
 	emailRoutes := v1.Group("/email")
 	{
-		emailRoutes.GET("/getVerificationCode")
+		emailRoutes.GET("/getVerificationCode", get.VerificationCode)
 	}
 	return router
 }
