@@ -1,9 +1,7 @@
 package helpers
 
 import (
-	"context"
 	"log"
-	"time"
 
 	"github.com/go-redis/redis"
 )
@@ -21,8 +19,6 @@ func RedisInit() {
 		Password: "",               // No password for local Redis, set it if needed
 		DB:       0,                // Default DB
 	})
-	_, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
 	_, err := RedisClient.Ping().Result()
 	if err != nil {
 		log.Fatalf("Error initializing Redis client: %v", err)
