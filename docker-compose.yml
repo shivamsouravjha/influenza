@@ -1,0 +1,11 @@
+version: '1'
+services:
+  redis:
+    image: redis
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - my-network
+networks:
+  my-network:
