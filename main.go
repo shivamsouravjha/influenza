@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/shivamsouravjha/influenza/server"
+)
 
 func main() {
-	fmt.Println("starting the project")
+	server.Init()
 }
