@@ -6,6 +6,7 @@ import (
 	post "github.com/shivamsouravjha/influenza/controllers/POST"
 	"github.com/shivamsouravjha/influenza/helpers/mongo"
 	"github.com/shivamsouravjha/influenza/helpers/redis"
+	"github.com/shivamsouravjha/influenza/middlewares"
 )
 
 func NewRouter() *gin.Engine {
@@ -21,8 +22,9 @@ func NewRouter() *gin.Engine {
 	}
 	userRoutes := v1.Group("/post")
 	{
-		userRoutes.POST("/postFeedback")
 		userRoutes.GET("/getFeedback", get.GetUserFeedback)
+		userRoutes.Use(middlewares.JWT())
+		userRoutes.POST("/postFeedback", post.PostFeedback)
 	}
 	return router
 }

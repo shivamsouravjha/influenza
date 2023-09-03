@@ -30,7 +30,7 @@ func VerifyCode(c *gin.Context) {
 	}
 	resp := responseStruct.SuccessResponse{}
 
-	resp.Message, err = token.GenerateToken("dsa", config.Get().JWT)
+	resp.Message, err = token.GenerateToken(verifyRequest.Email, config.Get().JWT)
 	if err != nil {
 		resp := responseStruct.SuccessResponse{}
 		resp.Message = err.Error()
