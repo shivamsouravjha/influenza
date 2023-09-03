@@ -26,6 +26,9 @@ type Config struct {
 	EmailPassword        string
 	DBMaxIdleConnections int
 	JWT                  string
+	MongoPort            string
+	MongoUsername        string
+	MongoPassword        string
 }
 
 var config Config
@@ -65,6 +68,10 @@ func init() {
 	config.EmailPassword = os.Getenv("EMAIL_PASSWORD")
 	config.DBMaxIdleConnections, _ = strconv.Atoi(os.Getenv("DB_MAX_IDLE_CONENCTION"))
 	config.DBMaxOpenConnections, _ = strconv.Atoi(os.Getenv("DB_MAX_OPEN_CONNECTIONS"))
+	config.DBHostReader = os.Getenv("DB_HOST_READER")
+	config.MongoPort = os.Getenv("MONGO_PORT")
+	config.MongoUsername = os.Getenv("MongoUsername")
+	config.MongoPassword = os.Getenv("MongoPassword")
 }
 
 func Get() Config {
