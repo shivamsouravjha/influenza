@@ -18,15 +18,18 @@ func PostFeedback(c *gin.Context) {
 		c.JSON(422, utils.SendErrorResponse(err))
 		return
 	}
-	uniqueId := uuid.New()
 
-	filename := strings.Replace(uniqueId.String(), "-", "", -1)
-	fileExt := strings.Split(influencerFeedback.Post.Filename, ".")[1]
-	image := fmt.Sprintf("%s.%s", filename, fileExt)
-	err := c.SaveUploadedFile(influencerFeedback.Post, image)
-	if err != nil {
-		fmt.Println(err.Error())
+	if influencerFeedback.Post != nil {
+		uniqueId := uuid.New()
+		filename := strings.Replace(uniqueId.String(), "-", "", -1)
+		fileExt := strings.Split(influencerFeedback.Post.Filename, ".")[1]
+		image := fmt.Sprintf("%s.%s", filename, fileExt)
+		err := c.SaveUploadedFile(influencerFeedback.Post, image)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 	}
+
 	resp := responseStruct.SuccessResponse{}
 	message, _ := c.Get("email")
 	if intValue, ok := message.(string); ok {

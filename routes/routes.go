@@ -20,11 +20,16 @@ func NewRouter() *gin.Engine {
 		emailRoutes.GET("/getVerificationCode", get.VerificationCode)
 		emailRoutes.POST("/verifyCode", post.VerifyCode)
 	}
-	userRoutes := v1.Group("/post")
+	postRoutes := v1.Group("/post")
 	{
-		userRoutes.GET("/getFeedback", get.GetUserFeedback)
-		userRoutes.Use(middlewares.JWT())
-		userRoutes.POST("/postFeedback", post.PostFeedback)
+		postRoutes.GET("/getFeedback", get.GetUserFeedback)
+		postRoutes.Use(middlewares.JWT())
+		postRoutes.POST("/postFeedback", post.PostFeedback)
+	}
+	userRoutes := v1.Group("/inluenza")
+	{
+		userRoutes.GET("/wall", get.GetInfluenzaWall)
+		userRoutes.POST("/profile", get.GetInfluenzaProfile)
 	}
 	return router
 }
