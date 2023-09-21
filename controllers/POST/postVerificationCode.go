@@ -2,6 +2,7 @@ package post
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/shivamsouravjha/influenza/config"
@@ -30,7 +31,8 @@ func VerifyCode(c *gin.Context) {
 	}
 	resp := responseStruct.SuccessResponse{}
 
-	resp.Message, err = token.GenerateToken(verifyRequest.Email, config.Get().JWT)
+	requesterEmail := strings.Split(verifyRequest.Email, "@")
+	resp.Message, err = token.GenerateToken(requesterEmail[1], config.Get().JWT)
 	if err != nil {
 		resp := responseStruct.SuccessResponse{}
 		resp.Message = err.Error()

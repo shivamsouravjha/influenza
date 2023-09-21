@@ -29,6 +29,9 @@ type Config struct {
 	MongoPort            string
 	MongoUsername        string
 	MongoPassword        string
+	CloudName            string
+	CloudSecret          string
+	CloudPublic          string
 }
 
 var config Config
@@ -72,6 +75,9 @@ func init() {
 	config.MongoPort = os.Getenv("MONGO_PORT")
 	config.MongoUsername = os.Getenv("MongoUsername")
 	config.MongoPassword = os.Getenv("MongoPassword")
+	config.CloudSecret = os.Getenv("CloudSecret")
+	config.CloudName = os.Getenv("CloudName")
+	config.CloudPublic = os.Getenv("CloudPublic")
 }
 
 func Get() Config {

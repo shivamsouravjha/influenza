@@ -20,6 +20,7 @@ services:
       MYSQL_DATABASE: companyemail
   mongodb:
     image: mongo:latest
+    command: mongod --bind_ip_all
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -30,5 +31,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: adminpassword
     networks:
       - my-network
+
 networks:
   my-network:
