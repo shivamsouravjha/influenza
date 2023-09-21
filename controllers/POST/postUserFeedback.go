@@ -21,12 +21,12 @@ import (
 )
 
 func PostFeedback(c *gin.Context) {
-	influencerFeedback := requestStruct.InfluencerFeedback{}
+	influencerFeedback := requestStruct.FeedbackData{}
 	if err := c.ShouldBind(&influencerFeedback); err != nil {
 		c.JSON(422, utils.SendErrorResponse(err))
 		return
 	}
-
+	fmt.Println(influencerFeedback.ImageLink)
 	if influencerFeedback.Post != nil {
 		uniqueId := uuid.New()
 		filename := strings.Replace(uniqueId.String(), "-", "", -1)
@@ -65,7 +65,7 @@ func PostFeedback(c *gin.Context) {
 
 	// if feedBack, ok := email.(string); ok {
 	// 	resp.Message = feedBack
-	influenzaInfo := structure.Feedbackdata{
+	influenzaInfo := structure.Influencer{
 		Name:     influencerFeedback.Name,
 		Company:  influencerFeedback.Company,
 		LinkedIn: influencerFeedback.LinkedIn,
@@ -73,7 +73,7 @@ func PostFeedback(c *gin.Context) {
 
 	filter := bson.M{"linkedin": influencerFeedback.LinkedIn}
 
-	existingUser, err := mongo.FindInfluenza(filter, "inlfuenza")
+	existingUser, err := mongo.Find(filter, "inlfuenza")
 	if err != nil {
 		res, createError := mongo.CreateInfluenza(influenzaInfo, "inlfuenza")
 		if createError != nil {

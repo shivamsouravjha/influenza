@@ -63,7 +63,7 @@ func createDatabaseAndIndex() error {
 	return err
 }
 
-func CreateItem(item requestStruct.InfluencerFeedback, collection string) error {
+func CreateItem(item requestStruct.FeedbackData, collection string) error {
 	_, err := client.Database("influenza").Collection(collection).InsertOne(context.TODO(), item)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -72,8 +72,8 @@ func CreateItem(item requestStruct.InfluencerFeedback, collection string) error 
 	return nil
 }
 
-func FindInfluenza(filter bson.M, collection string) (*structure.Feedbackdata, error) {
-	var existingUser structure.Feedbackdata
+func Find(filter bson.M, collection string) (*structure.Influencer, error) {
+	var existingUser structure.Influencer
 	dbCollection := client.Database("influenza").Collection(collection)
 	err := dbCollection.FindOne(context.Background(), filter).Decode(&existingUser)
 	if err != nil {
@@ -91,7 +91,7 @@ func FindInfluenza(filter bson.M, collection string) (*structure.Feedbackdata, e
 	return &existingUser, nil
 }
 
-func CreateInfluenza(item structure.Feedbackdata, collection string) (*mongo.InsertOneResult, error) {
+func CreateInfluenza(item structure.Influencer, collection string) (*mongo.InsertOneResult, error) {
 	res, err := client.Database("influenza").Collection(collection).InsertOne(context.TODO(), item)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -100,8 +100,8 @@ func CreateInfluenza(item structure.Feedbackdata, collection string) (*mongo.Ins
 	return res, nil
 }
 
-func FindFeedbacks(filter bson.M, collection string) ([]*structure.Feedbackdata, error) {
-	var existingUsers []*structure.Feedbackdata
+func GroupFind(filter bson.M, collection string) ([]*structure.Influencer, error) {
+	var existingUsers []*structure.Influencer
 	dbCollection := client.Database("influenza").Collection(collection)
 	// projection := bson.M{
 	// 	"name":     1,
@@ -119,7 +119,7 @@ func FindFeedbacks(filter bson.M, collection string) ([]*structure.Feedbackdata,
 	defer cursor.Close(context.TODO())
 
 	for cursor.Next(context.TODO()) {
-		var user structure.Feedbackdata
+		var user structure.Influencer
 		err := cursor.Decode(&user)
 		if err != nil {
 			fmt.Println("Error decoding document:", err)
@@ -135,4 +135,23 @@ func FindFeedbacks(filter bson.M, collection string) ([]*structure.Feedbackdata,
 	}
 
 	return existingUsers, nil
+}
+
+func Delete(filter bson.M, collection string) (*structure.Influencer, error) {
+	var existingUser structure.Influencer
+	dbCollection := client.Database("influenza").Collection(collection)
+	_, err := dbCollection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			// No document found for the given filter
+			fmt.Printf("No document found for filter: %+v\n", filter)
+		} else {
+			// Other error occurred
+			fmt.Printf("Error while querying MongoDB: %v\n", err)
+		}
+		fmt.Println(filter)
+		fmt.Println(err.Error())
+		return nil, err
+	}
+	return &existingUser, nil
 }

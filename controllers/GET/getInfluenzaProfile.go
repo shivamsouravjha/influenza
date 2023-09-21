@@ -15,7 +15,7 @@ func GetInfluenzaProfile(c *gin.Context) {
 	resp := responseStruct.SuccessResponse{}
 	filter := bson.M{"_id": username}
 
-	existingUser, err := mongo.FindInfluenza(filter, "inlfuenza")
+	existingUser, err := mongo.Find(filter, "inlfuenza")
 	if err != nil {
 		c.JSON(422, utils.SendErrorResponse(err))
 		return

@@ -32,6 +32,7 @@ type Config struct {
 	CloudName            string
 	CloudSecret          string
 	CloudPublic          string
+	SuperAdmin           string
 }
 
 var config Config
@@ -78,6 +79,7 @@ func init() {
 	config.CloudSecret = os.Getenv("CloudSecret")
 	config.CloudName = os.Getenv("CloudName")
 	config.CloudPublic = os.Getenv("CloudPublic")
+	config.SuperAdmin = os.Getenv("SuperAdmin")
 }
 
 func Get() Config {

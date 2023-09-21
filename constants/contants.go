@@ -27,3 +27,8 @@ var INVALID_TOKEN_RESPONSE = map[string]interface{}{
 	"status":  ApiFailStatus,
 	"message": "Invalid or No Token",
 }
+
+var INVALID_SUPER_ADMIN = map[string]interface{}{
+	"status":  ApiFailStatus,
+	"message": "Go back son",
+}

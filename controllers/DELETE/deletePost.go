@@ -1,19 +1,20 @@
-package get
+package delete
 
 import (
 	"errors"
 	"net/http"
 
+	responseStruct "github.com/shivamsouravjha/influenza/structure/response"
+
 	"github.com/gin-gonic/gin"
 	"github.com/shivamsouravjha/influenza/helpers/mongo"
-	responseStruct "github.com/shivamsouravjha/influenza/structure/response"
 	"github.com/shivamsouravjha/influenza/utils"
-
-"go.mongodb.org/mongo-driver/bson"
-"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GetUserFeedback(c *gin.Context) {
+func DeletePost(c *gin.Context) {
+
 	feedbackId := c.Query("feedbackId")
 	if feedbackId == "" {
 		c.JSON(422, utils.SendErrorResponse(errors.New("Can't find feedback")))
@@ -24,7 +25,7 @@ func GetUserFeedback(c *gin.Context) {
 
 	filter := bson.M{"_id": objID}
 
-	existingUser, err := mongo.Find(filter, "feedback")
+	existingUser, err := mongo.Delete(filter, "feedback")
 	if err != nil {
 		c.JSON(422, utils.SendErrorResponse(err))
 		return

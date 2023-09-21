@@ -23,8 +23,7 @@ func GetInfluenzaWall(c *gin.Context) {
 
 	filter := bson.M{"_id": objID}
 
-
-	existingUser, err := mongo.FindFeedbacks(filter, "inlfuenza")
+	existingUser, err := mongo.GroupFind(filter, "inlfuenza")
 	if err != nil {
 		c.JSON(422, utils.SendErrorResponse(err))
 		return
