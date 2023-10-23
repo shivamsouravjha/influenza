@@ -1,8 +1,6 @@
 package redis
 
 import (
-	"log"
-
 	"github.com/go-redis/redis"
 )
 
@@ -19,8 +17,8 @@ func RedisInit() {
 		Password: "",               // No password for local Redis, set it if needed
 		DB:       0,                // Default DB
 	})
-	_, err := RedisClient.Ping().Result()
-	if err != nil {
-		log.Fatalf("Error initializing Redis client: %v", err)
-	}
+	RedisClient.Ping().Result()
+	// if err != nil {
+	// 	log.Fatalf("Error initializing Redis client: %v", err)
+	// }
 }

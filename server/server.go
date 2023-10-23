@@ -1,8 +1,11 @@
 package server
 
-import "github.com/shivamsouravjha/influenza/routes"
+import (
+	"github.com/shivamsouravjha/influenza/config"
+	"github.com/shivamsouravjha/influenza/routes"
+)
 
 func Init() {
 	r := routes.NewRouter()
-	r.Run(":8080")
+	r.Run(":" + config.Get().ServerPort) //running the server at port
 }

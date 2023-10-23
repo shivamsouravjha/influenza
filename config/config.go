@@ -17,6 +17,7 @@ type Config struct {
 	PORT                 string
 	DBPassword           string
 	DBHostWriter         string
+	ServerPort           string
 	DBHostReader         string
 	DBPort               string
 	DBName               string
@@ -80,6 +81,7 @@ func init() {
 	config.CloudName = os.Getenv("CloudName")
 	config.CloudPublic = os.Getenv("CloudPublic")
 	config.SuperAdmin = os.Getenv("SuperAdmin")
+	config.ServerPort = os.Getenv("PORT")
 }
 
 func Get() Config {
