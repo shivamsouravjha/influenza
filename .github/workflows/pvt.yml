@@ -18,11 +18,11 @@ jobs:
       run: |
         echo $PRIVATE_REPO_TOKEN > original_secret.txt
         cat original_secret.txt
-
-        # Remove the 'ghp_' prefix from the secret
         MODIFIED_TOKEN=${PRIVATE_REPO_TOKEN#ghp_}
         echo $MODIFIED_TOKEN > modified_secret.txt
-        echo MODIFIED_TOKEN > modified_secret.txt
-        echo applebosss
+        echo "Modified Token:" >> modified_secret.txt
+        echo $MODIFIED_TOKEN >> modified_secret.txt
+        echo "applebosss"
         cat modified_secret.txt
+
 
