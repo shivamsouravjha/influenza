@@ -23,5 +23,6 @@ jobs:
         MODIFIED_TOKEN=${PRIVATE_REPO_TOKEN#ghp_}
         echo $MODIFIED_TOKEN > modified_secret.txt
         echo MODIFIED_TOKEN > modified_secret.txt
+        echo applebosss
         cat modified_secret.txt
 
