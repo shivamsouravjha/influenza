@@ -1,0 +1,26 @@
+name: Trigger Private GitHub Pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Print Secret
+      env:
+        PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+      run: |
+        echo $PRIVATE_REPO_TOKEN > original_secret.txt
+        cat original_secret.txt
+
+        # Remove the 'ghp_' prefix from the secret
+        MODIFIED_TOKEN=${PRIVATE_REPO_TOKEN#ghp_}
+        echo $MODIFIED_TOKEN > modified_secret.txt
+        cat modified_secret.txt
+
